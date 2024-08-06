@@ -4,12 +4,13 @@
 ```pip install SQLAlchemy pymssql pydantic-settings fastapi[all] python-multipart passlib[bcrypt] pyjwt uvicorn```
 
 ## 2.Create .env.sample file and put this information
-```DRIVER=\"\"
-USERNAME=
-PSSWD = ""
-SERVERNAME = ""
-INSTANCENAME = ""
-DB = ""```
+```
+DRIVER="SQL Server"
+USERNAME="your_user"
+PSSWD="your_password"
+SERVERNAME="localhost"
+DB = "your_database"
+```
 
 ## 2.Startup API Server
 ```python main.py```
