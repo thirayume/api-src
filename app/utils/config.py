@@ -7,8 +7,7 @@ class Settings(BaseSettings):
     USERNAME: str
     PSSWD: str
     SERVERNAME: str
-    INSTANCENAME: str
-    DB: str
+    DBNAME: str
 
     class Config:
         env_file = ".env.sample"

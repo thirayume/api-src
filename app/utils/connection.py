@@ -13,10 +13,10 @@ def get_db(settings: Settings = Depends(get_settings)):
 
     # Create engine
     # engine = create_engine(
-    #     f"mssql+pymssql://{settings.DB_UID}:{settings.DB_PWD}@{settings.DB_SERVER}:{settings.DB_PORT}/{settings.DB_NAME}"
+    #     f"mssql+pymssql://{settings.USERNAME}:{settings.PSSWD}@{settings.SERVERNAME}/{settings.DBNAME}"
     # )
     engine = create_engine(
-        f"mssql://{settings.SERVERNAME}/{settings.DB}?trusted_connection=yes&driver={settings.DRIVER}"
+        f"mssql://{settings.SERVERNAME}/{settings.DBNAME}?trusted_connection=yes&driver={settings.DRIVER}"
     )
 
     # Create Session

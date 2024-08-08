@@ -1,7 +1,8 @@
 # API App
 
 ## 1.Install Dependencies
-```pip install SQLAlchemy pymssql pydantic-settings fastapi[all] python-multipart passlib[bcrypt] pyjwt uvicorn```
+```py -m pip install --upgrade pip```
+```pip install SQLAlchemy pymssql pyodbc pydantic-settings fastapi[all] python-multipart passlib[bcrypt] pyjwt uvicorn```
 
 ## 2.Create .env.sample file and put this information
 ```
