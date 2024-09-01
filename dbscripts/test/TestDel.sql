@@ -1,0 +1,4 @@
+USE [dbwins_demo]
+GO
+
+DELETE FROM [EMVendor] WHERE [VendorID] IN (3333, 3030, 30303, 303030)

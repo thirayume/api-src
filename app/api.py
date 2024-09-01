@@ -21,23 +21,26 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(
+print("Running api.py")
+print(__name__)
+
+apiApp = FastAPI(
     title="WinSpeed FastAPI", description="API for WinSpeed database", version="1.0.0"
 )
-
+# __all__ = ["app"]
 
 # route handlers
-@app.get("/", tags=["App"])
+@apiApp.get("/", tags=["App"])
 async def read_root() -> dict:
-    return {"message": "Welcome to " + app.title}
+    return {"message": "Welcome to " + apiApp.title}
 
 
-@app.get("/api/info", tags=["API"])
+@apiApp.get("/api/info", tags=["API"])
 async def information() -> dict:
-    return {"app_name": app.title, "version": app.version}
+    return {"app_name": apiApp.title, "version": apiApp.version}
 
 
-@app.post("/token", tags=["Auth"])
+@apiApp.post("/token", tags=["Auth"])
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Token:
@@ -55,7 +58,7 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@app.get("/users/me/", response_model=User, tags=["Auth"])
+@apiApp.get("/users/me/", response_model=User, tags=["Auth"])
 async def read_users_me(
     current_user: Annotated[User, Depends(get_current_active_user)]
 ):
@@ -64,7 +67,7 @@ async def read_users_me(
 
 ### Database ###
 # GET Current Version
-@app.get(
+@apiApp.get(
     "/db/version/{dbNum}",
     tags=["Database"],
 )
@@ -96,7 +99,7 @@ def process_results(result) -> List[Dict[str, Any]]:
     return [row_to_dict(row) for row in result]
 
 # GET Change Table Name
-@app.get(
+@apiApp.get(
     "/db/changed/{dbNum}/{version}",
     tags=["Database"],
 )
@@ -133,7 +136,7 @@ async def get_changed_table(
         raise HTTPException(status_code=500, detail="An unexpected error occurred")
     
 # GET Change dataset
-@app.get(
+@apiApp.get(
     "/db/changed/{dbNum}/{version}/detail",
     tags=["Database"],
 )
@@ -177,7 +180,7 @@ async def get_changed_data(
 
 # GET ALL
 # Response will be a LIST of data
-@app.get(
+@apiApp.get(
     "/vendors/all",
     response_model=List[VendorSchema],
     tags=["Vendors"],
@@ -196,7 +199,7 @@ async def get_data(
 
 # GET Single
 # Response will be a single data
-@app.get(
+@apiApp.get(
     "/vendors/{id}",
     response_model=VendorSchema,
     # dependencies=[Depends(JWTBearer())],
@@ -219,7 +222,7 @@ async def get_vendor_by_id(
 
 # POST
 # Response will be a single data after creation in the DB
-@app.post(
+@apiApp.post(
     "/vendors/new",
     response_model=VendorSchema,
     # dependencies=[Depends(JWTBearer())],
@@ -263,7 +266,7 @@ async def create_vendor(
 
 # PUT
 # Response will be a single data after update in the DB
-@app.put(
+@apiApp.put(
     "/vendors/edit",
     response_model=VendorSchema,
     # dependencies=[Depends(JWTBearer())],
@@ -307,7 +310,7 @@ async def update_vendor(
 
 
 # DELETE
-@app.delete(
+@apiApp.delete(
     "/vendors/del/{id}",
     status_code=status.HTTP_204_NO_CONTENT,
     # dependencies=[Depends(JWTBearer())],

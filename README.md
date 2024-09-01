@@ -2,7 +2,7 @@
 
 ## 1.Install the requirements
 ```python -m pip install --upgrade pip```
-```pip install SQLAlchemy pymssql pyodbc pydantic-settings fastapi[all] python-multipart passlib[bcrypt] pyjwt python-decouple uvicorn```
+```pip install SQLAlchemy pymssql pyodbc pydantic-settings fastapi[all] python-multipart bcrypt passlib[bcrypt] pyjwt python-decouple uvicorn```
 or using this,
 ```pip install -r requirements.txt```
 

@@ -28,12 +28,17 @@ def get_token():
     else:
         raise Exception(f"Failed to get token: {response.status_code}, {response.text}")
 
-# C:\Python311\python.exe C:\MyWork\Python\SFSolutions\ws-api\trigger_api.py 
+# C:\Python311\python.exe C:\ws-api\trigger_api.py 
 operation = sys.argv[1]
 url = sys.argv[2]
+
+print(operation)
+print(url)
+
 try:
     data = sys.argv[3]
     data = data.replace("{", "").replace("}", "")
+    data = data.replace("\"", "")
 
     # แบ่งข้อมูลเป็น list ของ dictionaries
     data_list = data.split("},")
@@ -47,7 +52,7 @@ try:
         for pair in pairs:
             key, value = pair.split(":")
             if key.endswith("ID"):
-                obj[key.strip()] = int(value.strip())
+                obj[key.strip()] = value.strip()
             else:
                 obj[key.strip()] = value.strip()
         corrected_data.append(obj)
@@ -55,7 +60,8 @@ try:
     # แปลงเป็น JSON
     json_data = json.dumps(corrected_data, ensure_ascii=False, indent=4)
     json_data = json_data.replace("[", "").replace("]", "")
-except:
+except Exception as error:
+    print("An exception occurred:", error)
     print("No data provided")
     pass
 
